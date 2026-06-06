@@ -1,16 +1,14 @@
 {
+  "functions": {
+    "api/proxy.js": {
+      "memory": 1024,
+      "maxDuration": 10
+    }
+  },
   "rewrites": [
     {
       "source": "/checkout/:path*",
-      "destination": "https://corsomovement.brandbot-checkout.com/:path*"
-    },
-    {
-      "source": "/marianaiframes/:path*",
-      "destination": "https://corsomovement.marianaiframes.com/:path*"
-    },
-    {
-      "source": "/brandbot-assets/:path*",
-      "destination": "https://assets.brandbot.com/:path*"
+      "destination": "/api/proxy?path=:path*"
     }
   ]
 }
