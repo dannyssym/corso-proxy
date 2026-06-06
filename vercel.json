@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/checkout/:path*",
+      "destination": "https://corsomovement.brandbot-checkout.com/:path*"
+    }
+  ]
+}
