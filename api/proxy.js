@@ -13,14 +13,16 @@ export default async function handler(req, res) {
       }
     });
 
-    const debug = {
-      status: response.status,
-      statusText: response.statusText,
-      headers: Object.fromEntries(response.headers.entries()),
-      bodyLength: (await response.text()).length
-    };
+    let body = await response.text();
 
-    res.status(200).json(debug);
+    body = body.replace(/https:\/\/corsomovement\.brandbot-checkout\.com/g, 'https://corso-proxy.vercel.app/checkout');
+    body = body.replace(/https:\/\/corsomovement\.marianaiframes\.com/g, 'https://corso-proxy.vercel.app/marianaiframes');
+    body = body.replace(/https:\/\/assets\.brandbot\.com/g, 'https://corso-proxy.vercel.app/brandbot-assets');
+
+    res.setHeader('Content-Type', 'text/html');
+    res.setHeader('X-Frame-Options', 'ALLOWALL');
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.status(200).send(body);
 
   } catch (err) {
     res.status(500).send(`Proxy error: ${err.message}`);
